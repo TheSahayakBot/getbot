@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <h1 style="text-align:center;">MAP</h1>
+    <figure style="text-align:center;">
+
+
+    </figure>
+
+</head>
+<body>
+
+    <style>
+        .container {
+            height: 50px;
+            position: relative;
+            border: 3px;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        
+    </style>
+
+
+
+    <script>
+        function initialpt(value) {
+            document.getElementById("Initialpt").value = value;
+              window.text1 = value;
+        }
+
+        function finalpt(value) {
+            document.getElementById("Finalpt").value = value;
+            window.text2 = value;
+        }
+
+        function send() {
+            var result = window.text1 + window.text2;
+            document.getElementById("resultt").value = result;
+ 
+            var url = "https://io.adafruit.com/api/v2/1pratham1/feeds/call-path/data";
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", url);
+
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader("X-AIO-Key", "6c45634a68724fac97bc61e5165e7094");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                }
+            };
+
+            var data = '{"value":' + '"' + result + '"' + '}';
+            xhr.send(data);
+
+        }
+    </script>
+
+    
+
+    
+    <h1 style="border:4px solid Green;text-align:center;">Choose start point</h1>
+    <div class="container">
+      <div class="center">
+      <button onclick="initialpt('A')" style="height:30px;width:150px">IOT</button>
+      <button onclick="initialpt('B')" style="height:30px;width:150px">ADC</button>
+      <button onclick="initialpt('C')" style="height:30px;width:150px">Staff Room</button>
+      <button onclick="initialpt('D')" style="height:30px;width:150px">Cadence</button>
+      <button onclick="initialpt('E')" style="height:30px;width:150px">Project Room</button>
+      <button onclick="initialpt('F')" style="height:30px;width:150px">Classroom 1</button>
+      <button onclick="initialpt('G')" style="height:30px;width:150px">Classroom 2</button>
+      </div>
+    </div>
+    
+    <h1 style="border:4px solid Red;text-align:center;">Choose final point</h1>
+    <div class="container">
+      <div class="center">
+      <button onclick="finalpt('A')" style="height:30px;width:150px">IOT</button>
+      <button onclick="finalpt('B')" style="height:30px;width:150px">ADC</button> 
+      <button onclick="finalpt('C')" style="height:30px;width:150px">Staff Room</button>
+      <button onclick="finalpt('D')" style="height:30px;width:150px">Cadence</button>
+      <button onclick="finalpt('E')" style="height:30px;width:150px">Project Room</button>
+      <button onclick="finalpt('F')" style="height:30px;width:150px">Classroom 1</button>
+      <button onclick="finalpt('G')" style="height:30px;width:150px">Classroom 2</button>
+      </div>
+    </div>
+
+    <h1 style="border:5px solid Brown;text-align:center;">The Path</h1>
+    <div class="container">
+        <div class="center">
+            <input type="text" value="" style="height:20px;width:100px;text-align:center;" id="Initialpt">
+            TO
+            <input type="text" value="" style="height:20px;width:100px;text-align:center;" id="Finalpt">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="center">
+            <button onclick="send()" style="height:30px;width:150px">SEND PATH</button>
+            <input type="text" value="" style="height:20px;width:100px;text-align:center;" id="resultt">
+        </div>
+    </div>
+    
+
+</body>
+</html>
